@@ -21,7 +21,11 @@ function addTodo() {
   <main>
     <h1>Todos</h1>
 
-    <button @click="todoStore.clearCompletedTodos()" class="clear">
+    <button
+      @click="todoStore.clearCompletedTodos()"
+      class="clear"
+      data-testid="clear-completed-todos"
+    >
       Clear completed todos
     </button>
 
@@ -40,6 +44,7 @@ function addTodo() {
         <input
           type="checkbox"
           name="isCompleted"
+          :data-testid="`todo-item${todo.isCompleted ? '-done' : ''}`"
           :id="todo.id"
           :checked="todo.isCompleted"
           @change="todoStore.toggleTodo(todo.id)"
@@ -52,11 +57,19 @@ function addTodo() {
       </li>
     </ul>
 
-    <form @submit.prevent="addTodo" class="addForm">
+    <form @submit.prevent class="addForm">
       <label for="add">Add todo</label>
       <div class="sl">
-        <input type="text" name="add" id="add" v-model="currentTodoInp" />
-        <button type="submit">Add</button>
+        <input
+          type="text"
+          name="add"
+          id="add"
+          data-testid="todo-input"
+          v-model="currentTodoInp"
+        />
+        <button type="submit" data-testid="todo-add-button" @click="addTodo">
+          Add
+        </button>
       </div>
     </form>
   </main>
